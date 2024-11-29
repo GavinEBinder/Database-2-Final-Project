@@ -1,4 +1,5 @@
-CREATE TABLE IF NOT EXISTS cve_records (cve_id INT PRIMARY KEY, product TEXT, vendor TEXT, cvss_score INT, severity TEXT);INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2013-1054', 'unity-firefox-extension', 'Canonical', 4.3, 'MEDIUM');
+CREATE TABLE IF NOT EXISTS cve_records (cve_id INT PRIMARY KEY, product TEXT, vendor TEXT, cvss_score INT, severity TEXT);
+INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2013-1054', 'unity-firefox-extension', 'Canonical', 4.3, 'MEDIUM');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2013-1055', 'unity-firefox-extension', 'Canonical', 4.3, 'MEDIUM');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2014-125083', 'google-enterprise-connector-dctm', 'Anant Labs', 5.5, 'MEDIUM');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2015-10101', 'Google Analytics Top Content Widget Plugin', 'n/a', 3.5, 'LOW');
