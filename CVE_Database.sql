@@ -1,4 +1,7 @@
-CREATE TABLE IF NOT EXISTS cve_records (cve_id INT PRIMARY KEY, product TEXT, vendor TEXT, cvss_score INT, severity TEXT);
+drop schema cve_database;
+CREATE SCHEMA cve_database;
+USE cve_database;
+CREATE TABLE IF NOT EXISTS cve_records (cve_id varchar(255), product varchar(255), vendor varchar(255), cvss_score decimal(3,1), severity varchar(255));
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2013-1054', 'unity-firefox-extension', 'Canonical', 4.3, 'MEDIUM');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2013-1055', 'unity-firefox-extension', 'Canonical', 4.3, 'MEDIUM');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2014-125083', 'google-enterprise-connector-dctm', 'Anant Labs', 5.5, 'MEDIUM');
@@ -171,7 +174,7 @@ INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES (
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-41115', 'Microsoft Edge (Chromium-based) Updater', 'Microsoft', 6.6, 'MEDIUM');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-41690', 'Intel(R) Retail Edge Mobile iOS application', 'n/a', 7.1, 'HIGH');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-41731', 'Watson Knowledge Catalog on-prem', 'IBM', 8.6, 'HIGH');
-INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-42461', 'miniOrange's Google Authenticator (WordPress plugin)', 'miniOrange', 5.4, 'MEDIUM');
+INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-42461', 'miniOranges Google Authenticator (WordPress plugin)', 'miniOrange', 5.4, 'MEDIUM');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-43518', 'Aruba EdgeConnect Enterprise Software', 'Hewlett Packard Enterprise (HPE)', 4.9, 'MEDIUM');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-43519', 'Aruba EdgeConnect Enterprise Orchestration Software', 'Hewlett Packard Enterprise (HPE)', 8.8, 'HIGH');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-43520', 'Aruba EdgeConnect Enterprise Orchestration Software', 'Hewlett Packard Enterprise (HPE)', 8.8, 'HIGH');
@@ -191,7 +194,7 @@ INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES (
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-44534', 'Aruba EdgeConnect Enterprise Orchestration Software', 'Hewlett Packard Enterprise (HPE)', 7.2, 'HIGH');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-44535', 'Aruba EdgeConnect Enterprise Orchestration Software', 'Hewlett Packard Enterprise (HPE)', 8.8, 'HIGH');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-44580', 'Plugin for Google Reviews', 'RichPlugins', 9.1, 'CRITICAL');
-INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-44589', 'miniOrange's Google Authenticator – WordPress Two Factor Authentication – 2FA , Two Factor, OTP SMS and Email | Passwordless login', 'miniOrange', 8.1, 'HIGH');
+INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-44589', 'miniOranges Google Authenticator – WordPress Two Factor Authentication – 2FA , Two Factor, OTP SMS and Email | Passwordless login', 'miniOrange', 8.1, 'HIGH');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-44688', 'Microsoft Edge (Chromium-based)', 'Microsoft', 4.3, 'MEDIUM');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-44708', 'Microsoft Edge for iOS', 'Microsoft', 8.3, 'HIGH');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-45369', 'Plugin for Google Reviews (WordPress plugin)', 'RichPlugins', 4.3, 'MEDIUM');
@@ -202,7 +205,7 @@ INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES (
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-47446', 'Store Locator for WordPress with Google Maps – LotsOfLocales', 'Viadat Creations', 5.4, 'MEDIUM');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-47595', 'WP Go Maps (formerly WP Google Maps)', 'WP Go Maps', 4.9, 'MEDIUM');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-47967', 'Solid Edge', 'Siemens', 7.8, 'HIGH');
-INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-4943', 'miniOrange&#039;s Google Authenticator – WordPress Two Factor Authentication – 2FA , Two Factor, OTP SMS and Email | Passwordless login', 'cyberlord92', 7.5, 'HIGH');
+INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2022-4943', 'miniOranges Google Authenticator – WordPress Two Factor Authentication – 2FA , Two Factor, OTP SMS and Email | Passwordless login', 'cyberlord92', 7.5, 'HIGH');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2023-1456', 'EdgeRouter X', 'Ubiquiti', 7.2, 'HIGH');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2023-1457', 'EdgeRouter X', 'Ubiquiti', 7.2, 'HIGH');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2023-1458', 'EdgeRouter X', 'Ubiquiti', 7.2, 'HIGH');
@@ -408,7 +411,7 @@ INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES (
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2023-50853', 'Advanced Form Integration – Connect WooCommerce and Contact Form 7 to Google Sheets and other platforms', 'Nasirahmed', 7.6, 'HIGH');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2023-51373', 'Google Photos Gallery with Shortcodes', 'Ian Kennerley', 7.1, 'HIGH');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2023-51419', 'BERTHA AI. Your AI co-pilot for WordPress and Chrome', 'Bertha.ai', 10, 'CRITICAL');
-INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2023-51504', 'Dan's Embedder for Google Calendar', 'Dan Dulaney', 6.5, 'MEDIUM');
+INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2023-51504', 'Dans Embedder for Google Calendar', 'Dan Dulaney', 6.5, 'MEDIUM');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2023-51534', 'Brave – Create Popup, Optins, Lead Generation, Survey, Sticky Elements & Interactive Content', 'Brave', 5.9, 'MEDIUM');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2023-52177', 'Integrate Google Drive', 'SoftLab', 5.4, 'MEDIUM');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2023-52198', 'Private Google Calendars', 'Michiel van Eerd', 6.5, 'MEDIUM');
