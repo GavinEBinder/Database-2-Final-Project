@@ -900,3 +900,4 @@ INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES (
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2024-9959', 'Chrome', 'Google', 8.8, 'HIGH');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2024-9960', 'Chrome', 'Google', 8.8, 'HIGH');
 INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity) VALUES ('CVE-2024-9961', 'Chrome', 'Google', 8.8, 'HIGH');
+SELECT * FROM cve_records;
