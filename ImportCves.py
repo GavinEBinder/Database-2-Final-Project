@@ -20,6 +20,45 @@ with open("cve_database.sql", "r", encoding="utf-8") as sql_file:
                 for row in results:
                     print(row)
     conn.commit()
+    
+with open("CreateBrowserTables.sql", "r", encoding="utf-8") as sql_file:
+    sql_commands = sql_file.read()
+    commands = sql_commands.split(";")
+    for command in commands:
+        command = command.strip()
+        if command:
+            cursor.execute(command)
+            if command.lower().startswith("select"):
+                results = cursor.fetchall()
+                for row in results:
+                    print(row)
+    conn.commit()
+    
+with open("CreateAndInsertBrowserStats.sql", "r", encoding="utf-8") as sql_file:
+    sql_commands = sql_file.read()
+    commands = sql_commands.split(";")
+    for command in commands:
+        command = command.strip()
+        if command:
+            cursor.execute(command)
+            if command.lower().startswith("select"):
+                results = cursor.fetchall()
+                for row in results:
+                    print(row)
+    conn.commit()
+    
+with open("SelectBrowserStats.sql", "r", encoding="utf-8") as sql_file:
+    sql_commands = sql_file.read()
+    commands = sql_commands.split(";")
+    for command in commands:
+        command = command.strip()
+        if command:
+            cursor.execute(command)
+            if command.lower().startswith("select"):
+                results = cursor.fetchall()
+                for row in results:
+                    print(row)
+    conn.commit()
 
     print("Database has been successfully populated")
     if conn.is_connected():

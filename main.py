@@ -193,7 +193,7 @@ with open("CVE_Database.sql", "r", encoding="utf-8") as sql_file:
             if command.lower().startswith("select"):
                 results = cursor.fetchall()
                 for row in results:
-    conn.commit()
-    if conn.is_connected():
-        cursor.close()
-        conn.close()
+                    conn.commit()
+                    if conn.is_connected():
+                        cursor.close()
+                        conn.close()
