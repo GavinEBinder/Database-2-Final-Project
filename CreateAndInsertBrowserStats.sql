@@ -1,11 +1,12 @@
+USE cve_database;
 DROP TABLE IF EXISTS browser_stats;
 CREATE TABLE browser_stats (
     product VARCHAR(50),
-    weighted_average FLOAT,
-    average_score FLOAT,
-    min_score FLOAT,
-    max_score FLOAT,
-    median_score FLOAT,
+    weighted_average DECIMAL(3,1),
+    average_score DECIMAL(3,1),
+    min_score DECIMAL(3,1),
+    max_score DECIMAL(3,1),
+    median_score DECIMAL(3,1),
     total_count INT,
     num_critical INT,
     num_high INT,
@@ -85,7 +86,7 @@ FROM
     cve_records em,
     (SELECT @rowindex := @rowindex + 1 AS rowindex,
             em.cvss_score
-     FROM edge_microsoft em
+     FROM cve_records em
      WHERE product LIKE "%edge%" and vendor = "microsoft"
      ORDER BY em.cvss_score) AS d
 WHERE
@@ -124,7 +125,7 @@ FROM
     cve_records fm,
     (SELECT @rowindex := @rowindex + 1 AS rowindex,
             fm.cvss_score
-     FROM firefox_mozilla fm
+     FROM cve_records fm
      WHERE product LIKE "%firefox%" and vendor = "mozilla"
      ORDER BY fm.cvss_score) AS d
 WHERE
@@ -163,7 +164,7 @@ FROM
     cve_records sa,
     (SELECT @rowindex := @rowindex + 1 AS rowindex,
             sa.cvss_score
-     FROM safari_apple sa
+     FROM cve_records sa
      WHERE product LIKE "%safari%" and vendor = "apple"
      ORDER BY sa.cvss_score) AS d
 WHERE
@@ -202,7 +203,7 @@ FROM
     cve_records bb,
     (SELECT @rowindex := @rowindex + 1 AS rowindex,
             bb.cvss_score
-     FROM brave_brave bb
+     FROM cve_records bb
      WHERE product LIKE "%brave%" and vendor = "brave"
      ORDER BY bb.cvss_score) AS d
 WHERE
