@@ -5,14 +5,19 @@ CREATE TABLE browser_stats (
     average_score FLOAT,
     min_score FLOAT,
     max_score FLOAT,
-    median_score FLOAT
+    median_score FLOAT,
+    total_count INT,
+    num_critical INT,
+    num_high INT,
+    num_medium INT,
+    num_low INT
 );
 
 #Chrome
 
 SET @rowindex := -1;
 
-INSERT INTO browser_stats (product, weighted_average, average_score, min_score, max_score, median_score)
+INSERT INTO browser_stats (product, weighted_average, average_score, min_score, max_score, median_score, total_count, num_critical, num_high, num_medium, num_low)
 SELECT
     'Chrome' AS product,
     SUM(cg.cvss_score * CASE
@@ -31,21 +36,27 @@ SELECT
     AVG(cg.cvss_score) AS average_score,
     MIN(cg.cvss_score) AS min_score,
     MAX(cg.cvss_score) AS max_score,
-    AVG(d.cvss_score) AS median_score
+    AVG(d.cvss_score) AS median_score,
+    COUNT(*) AS total_count,
+    SUM(CASE WHEN cg.severity = 'CRITICAL' THEN 1 ELSE 0 END) AS num_critical,
+	SUM(CASE WHEN cg.severity = 'HIGH' THEN 1 ELSE 0 END) AS num_high,
+	SUM(CASE WHEN cg.severity = 'MEDIUM' THEN 1 ELSE 0 END) AS num_medium,
+    SUM(CASE WHEN cg.severity = 'LOW' THEN 1 ELSE 0 END) AS num_low
 FROM
-    chrome_google cg,
+    cve_records cg,
     (SELECT @rowindex := @rowindex + 1 AS rowindex,
             cg.cvss_score
-     FROM chrome_google cg
+     FROM cve_records cg
+     WHERE product LIKE "%chrome%" and vendor = "google"
      ORDER BY cg.cvss_score) AS d
 WHERE
-    d.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2));
+    d.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2)) AND product like "%chrome%" and vendor = "google";
 
 #Edge
 
 SET @rowindex := -1;
 
-INSERT INTO browser_stats (product, weighted_average, average_score, min_score, max_score, median_score)
+INSERT INTO browser_stats (product, weighted_average, average_score, min_score, max_score, median_score, total_count, num_critical, num_high, num_medium, num_low)
 SELECT
     'Edge' AS product,
     SUM(em.cvss_score * CASE
@@ -64,21 +75,27 @@ SELECT
     AVG(em.cvss_score) AS average_score,
     MIN(em.cvss_score) AS min_score,
     MAX(em.cvss_score) AS max_score,
-    AVG(d.cvss_score) AS median_score
+    AVG(d.cvss_score) AS median_score,
+    COUNT(*) AS total_count,
+    SUM(CASE WHEN em.severity = 'CRITICAL' THEN 1 ELSE 0 END) AS num_critical,
+	SUM(CASE WHEN em.severity = 'HIGH' THEN 1 ELSE 0 END) AS num_high,
+	SUM(CASE WHEN em.severity = 'MEDIUM' THEN 1 ELSE 0 END) AS num_medium,
+    SUM(CASE WHEN em.severity = 'LOW' THEN 1 ELSE 0 END) AS num_low
 FROM
-    edge_microsoft em,
+    cve_records em,
     (SELECT @rowindex := @rowindex + 1 AS rowindex,
             em.cvss_score
      FROM edge_microsoft em
+     WHERE product LIKE "%edge%" and vendor = "microsoft"
      ORDER BY em.cvss_score) AS d
 WHERE
-    d.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2));
+    d.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2)) AND product like "%edge%" and vendor = "microsoft";
     
 #FireFox
 
 SET @rowindex := -1;
 
-INSERT INTO browser_stats (product, weighted_average, average_score, min_score, max_score, median_score)
+INSERT INTO browser_stats (product, weighted_average, average_score, min_score, max_score, median_score, total_count, num_critical, num_high, num_medium, num_low)
 SELECT
     'Firefox' AS product,
     SUM(fm.cvss_score * CASE
@@ -97,21 +114,27 @@ SELECT
     AVG(fm.cvss_score) AS average_score,
     MIN(fm.cvss_score) AS min_score,
     MAX(fm.cvss_score) AS max_score,
-    AVG(d.cvss_score) AS median_score
+    AVG(d.cvss_score) AS median_score,
+    COUNT(*) AS total_count,
+    SUM(CASE WHEN fm.severity = 'CRITICAL' THEN 1 ELSE 0 END) AS num_critical,
+	SUM(CASE WHEN fm.severity = 'HIGH' THEN 1 ELSE 0 END) AS num_high,
+	SUM(CASE WHEN fm.severity = 'MEDIUM' THEN 1 ELSE 0 END) AS num_medium,
+    SUM(CASE WHEN fm.severity = 'LOW' THEN 1 ELSE 0 END) AS num_low
 FROM
-    firefox_mozilla fm,
+    cve_records fm,
     (SELECT @rowindex := @rowindex + 1 AS rowindex,
             fm.cvss_score
      FROM firefox_mozilla fm
+     WHERE product LIKE "%firefox%" and vendor = "mozilla"
      ORDER BY fm.cvss_score) AS d
 WHERE
-    d.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2));
+    d.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2)) AND product like "%firefox%" and vendor = "mozilla";
 
 #Safari
 
 SET @rowindex := -1;
 
-INSERT INTO browser_stats (product, weighted_average, average_score, min_score, max_score, median_score)
+INSERT INTO browser_stats (product, weighted_average, average_score, min_score, max_score, median_score, total_count, num_critical, num_high, num_medium, num_low)
 SELECT
     'Safari' AS product,
     SUM(sa.cvss_score * CASE
@@ -130,21 +153,27 @@ SELECT
     AVG(sa.cvss_score) AS average_score,
     MIN(sa.cvss_score) AS min_score,
     MAX(sa.cvss_score) AS max_score,
-    AVG(d.cvss_score) AS median_score
+    AVG(d.cvss_score) AS median_score,
+    COUNT(*) AS total_count,
+    SUM(CASE WHEN sa.severity = 'CRITICAL' THEN 1 ELSE 0 END) AS num_critical,
+	SUM(CASE WHEN sa.severity = 'HIGH' THEN 1 ELSE 0 END) AS num_high,
+	SUM(CASE WHEN sa.severity = 'MEDIUM' THEN 1 ELSE 0 END) AS num_medium,
+    SUM(CASE WHEN sa.severity = 'LOW' THEN 1 ELSE 0 END) AS num_low
 FROM
-    safari_apple sa,
+    cve_records sa,
     (SELECT @rowindex := @rowindex + 1 AS rowindex,
             sa.cvss_score
      FROM safari_apple sa
+     WHERE product LIKE "%safari%" and vendor = "apple"
      ORDER BY sa.cvss_score) AS d
 WHERE
-    d.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2));
+    d.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2)) AND product like "%safari%" and vendor = "apple";
 
 #Brave
 
 SET @rowindex := -1;
 
-INSERT INTO browser_stats (product, weighted_average, average_score, min_score, max_score, median_score)
+INSERT INTO browser_stats (product, weighted_average, average_score, min_score, max_score, median_score, total_count, num_critical, num_high, num_medium, num_low)
 SELECT
     'Brave' AS product,
     SUM(bb.cvss_score * CASE
@@ -163,12 +192,18 @@ SELECT
     AVG(bb.cvss_score) AS average_score,
     MIN(bb.cvss_score) AS min_score,
     MAX(bb.cvss_score) AS max_score,
-    AVG(d.cvss_score) AS median_score
+    AVG(d.cvss_score) AS median_score,
+    COUNT(*) AS total_count,
+    SUM(CASE WHEN bb.severity = 'CRITICAL' THEN 1 ELSE 0 END) AS num_critical,
+	SUM(CASE WHEN bb.severity = 'HIGH' THEN 1 ELSE 0 END) AS num_high,
+	SUM(CASE WHEN bb.severity = 'MEDIUM' THEN 1 ELSE 0 END) AS num_medium,
+    SUM(CASE WHEN bb.severity = 'LOW' THEN 1 ELSE 0 END) AS num_low
 FROM
-    brave_brave bb,
+    cve_records bb,
     (SELECT @rowindex := @rowindex + 1 AS rowindex,
             bb.cvss_score
      FROM brave_brave bb
+     WHERE product LIKE "%brave%" and vendor = "brave"
      ORDER BY bb.cvss_score) AS d
 WHERE
-    d.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2));
+    d.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2)) AND product like "%brave%" and vendor = "brave";
