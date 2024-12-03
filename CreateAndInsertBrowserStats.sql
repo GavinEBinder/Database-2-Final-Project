@@ -22,16 +22,16 @@ INSERT INTO browser_stats (product, weighted_average, average_score, min_score, 
 SELECT
     'Chrome' AS product,
     SUM(cg.cvss_score * CASE
-        WHEN cg.severity = 'LOW' THEN 1
-        WHEN cg.severity = 'MEDIUM' THEN 2
-        WHEN cg.severity = 'HIGH' THEN 3
-        WHEN cg.severity = 'CRITICAL' THEN 4
+        WHEN cg.severity = 'LOW' THEN 0.2
+        WHEN cg.severity = 'MEDIUM' THEN 0.8
+        WHEN cg.severity = 'HIGH' THEN 1.5
+        WHEN cg.severity = 'CRITICAL' THEN 3
         ELSE 0
     END) / SUM(CASE
-        WHEN cg.severity = 'LOW' THEN 1
-        WHEN cg.severity = 'MEDIUM' THEN 2
-        WHEN cg.severity = 'HIGH' THEN 3
-        WHEN cg.severity = 'CRITICAL' THEN 4
+        WHEN cg.severity = 'LOW' THEN 0.2
+        WHEN cg.severity = 'MEDIUM' THEN 0.8
+        WHEN cg.severity = 'HIGH' THEN 1.5
+        WHEN cg.severity = 'CRITICAL' THEN 3
         ELSE 0
     END) AS weighted_average,
     AVG(cg.cvss_score) AS average_score,
@@ -61,16 +61,16 @@ INSERT INTO browser_stats (product, weighted_average, average_score, min_score, 
 SELECT
     'Edge' AS product,
     SUM(em.cvss_score * CASE
-        WHEN em.severity = 'LOW' THEN 1
-        WHEN em.severity = 'MEDIUM' THEN 2
-        WHEN em.severity = 'HIGH' THEN 3
-        WHEN em.severity = 'CRITICAL' THEN 4
+        WHEN em.severity = 'LOW' THEN 0.2
+        WHEN em.severity = 'MEDIUM' THEN 0.8
+        WHEN em.severity = 'HIGH' THEN 1.5
+        WHEN em.severity = 'CRITICAL' THEN 3
         ELSE 0
     END) / SUM(CASE
-        WHEN em.severity = 'LOW' THEN 1
-        WHEN em.severity = 'MEDIUM' THEN 2
-        WHEN em.severity = 'HIGH' THEN 3
-        WHEN em.severity = 'CRITICAL' THEN 4
+        WHEN em.severity = 'LOW' THEN 0.2
+        WHEN em.severity = 'MEDIUM' THEN 0.8
+        WHEN em.severity = 'HIGH' THEN 1.5
+        WHEN em.severity = 'CRITICAL' THEN 3
         ELSE 0
     END) AS weighted_average,
     AVG(em.cvss_score) AS average_score,
@@ -100,16 +100,16 @@ INSERT INTO browser_stats (product, weighted_average, average_score, min_score, 
 SELECT
     'Firefox' AS product,
     SUM(fm.cvss_score * CASE
-        WHEN fm.severity = 'LOW' THEN 1
-        WHEN fm.severity = 'MEDIUM' THEN 2
-        WHEN fm.severity = 'HIGH' THEN 3
-        WHEN fm.severity = 'CRITICAL' THEN 4
+        WHEN fm.severity = 'LOW' THEN 0.2
+        WHEN fm.severity = 'MEDIUM' THEN 0.8
+        WHEN fm.severity = 'HIGH' THEN 1.5
+        WHEN fm.severity = 'CRITICAL' THEN 3
         ELSE 0
     END) / SUM(CASE
-        WHEN fm.severity = 'LOW' THEN 1
-        WHEN fm.severity = 'MEDIUM' THEN 2
-        WHEN fm.severity = 'HIGH' THEN 3
-        WHEN fm.severity = 'CRITICAL' THEN 4
+        WHEN fm.severity = 'LOW' THEN 0.2
+        WHEN fm.severity = 'MEDIUM' THEN 0.8
+        WHEN fm.severity = 'HIGH' THEN 1.5
+        WHEN fm.severity = 'CRITICAL' THEN 3
         ELSE 0
     END) AS weighted_average,
     AVG(fm.cvss_score) AS average_score,
@@ -139,16 +139,16 @@ INSERT INTO browser_stats (product, weighted_average, average_score, min_score, 
 SELECT
     'Safari' AS product,
     SUM(sa.cvss_score * CASE
-        WHEN sa.severity = 'LOW' THEN 1
-        WHEN sa.severity = 'MEDIUM' THEN 2
-        WHEN sa.severity = 'HIGH' THEN 3
-        WHEN sa.severity = 'CRITICAL' THEN 4
+        WHEN sa.severity = 'LOW' THEN 0.2
+        WHEN sa.severity = 'MEDIUM' THEN 0.8
+        WHEN sa.severity = 'HIGH' THEN 1.5
+        WHEN sa.severity = 'CRITICAL' THEN 3
         ELSE 0
     END) / SUM(CASE
-        WHEN sa.severity = 'LOW' THEN 1
-        WHEN sa.severity = 'MEDIUM' THEN 2
-        WHEN sa.severity = 'HIGH' THEN 3
-        WHEN sa.severity = 'CRITICAL' THEN 4
+        WHEN sa.severity = 'LOW' THEN 0.2
+        WHEN sa.severity = 'MEDIUM' THEN 0.8
+        WHEN sa.severity = 'HIGH' THEN 1.5
+        WHEN sa.severity = 'CRITICAL' THEN 3
         ELSE 0
     END) AS weighted_average,
     AVG(sa.cvss_score) AS average_score,
@@ -178,16 +178,16 @@ INSERT INTO browser_stats (product, weighted_average, average_score, min_score, 
 SELECT
     'Brave' AS product,
     SUM(bb.cvss_score * CASE
-        WHEN bb.severity = 'LOW' THEN 1
-        WHEN bb.severity = 'MEDIUM' THEN 2
-        WHEN bb.severity = 'HIGH' THEN 3
-        WHEN bb.severity = 'CRITICAL' THEN 4
+        WHEN bb.severity = 'LOW' THEN 0.2
+        WHEN bb.severity = 'MEDIUM' THEN 0.8
+        WHEN bb.severity = 'HIGH' THEN 1.5
+        WHEN bb.severity = 'CRITICAL' THEN 3
         ELSE 0
     END) / SUM(CASE
-        WHEN bb.severity = 'LOW' THEN 1
-        WHEN bb.severity = 'MEDIUM' THEN 2
-        WHEN bb.severity = 'HIGH' THEN 3
-        WHEN bb.severity = 'CRITICAL' THEN 4
+        WHEN bb.severity = 'LOW' THEN 0.2
+        WHEN bb.severity = 'MEDIUM' THEN 0.8
+        WHEN bb.severity = 'HIGH' THEN 1.5
+        WHEN bb.severity = 'CRITICAL' THEN 3
         ELSE 0
     END) AS weighted_average,
     AVG(bb.cvss_score) AS average_score,
