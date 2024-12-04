@@ -2,6 +2,7 @@ import json
 import os
 import mysql.connector
 
+# Connect to local mysql
 conn = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -10,6 +11,7 @@ conn = mysql.connector.connect(
 )
 cursor = conn.cursor()
 
+# create database and cve_records table
 sql_line = "DROP SCHEMA IF EXISTS cve_database"
 print("executing create schema")
 cursor.execute(sql_line)
@@ -27,13 +29,14 @@ print("executing create table")
 cursor.execute(sql_line)
 
 conn.commit()
-
+# walk through to get all json files
 for root, dirs, files in os.walk('C:/Users/GBISB/PycharmProjects/pythonProject3/cves'):
     json_files = [f for f in files if f.endswith('.json')]
     for file in json_files:
         file_path = os.path.join(root, file)
         with open(file_path, encoding='utf-8') as json_file:
             data = json.load(json_file)
+            # read json files to get needed data
             try:
                 product = data['containers']['cna']['affected'][0]['product']
                 vendor = data['containers']['cna']['affected'][0]['vendor']
@@ -92,6 +95,7 @@ for root, dirs, files in os.walk('C:/Users/GBISB/PycharmProjects/pythonProject3/
                 desc = data['containers']['cna']['descriptions'][0]['value']
             except(KeyError, IndexError):
                 desc = "n/a"
+        # Make sure cvssScore and severity are properly set
         cvssScore = "n/a"
         severity = "n/a"
         if cvssScore_3_1 != "n/a":
@@ -112,6 +116,7 @@ for root, dirs, files in os.walk('C:/Users/GBISB/PycharmProjects/pythonProject3/
         elif cvssScore_3_1 == "n/a" and cvssScore_3 != "n/a" and cvssScore_2 != "n/a" and severity_2 != "n/a":
             cvssScore = "n/a"
             severity = severity_2
+        # if record has a valid cvssScore or severit rating add the record to the database
         if cvssScore != "n/a" or severity != "n/a":
             sql_line = ("INSERT INTO cve_records (cve_id, product, vendor, cvss_score, severity)"
                         "VALUES (%s, %s, %s, %s, %s)"
