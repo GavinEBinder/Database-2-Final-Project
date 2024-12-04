@@ -1,1 +1,0 @@
-select * from browser_stats
