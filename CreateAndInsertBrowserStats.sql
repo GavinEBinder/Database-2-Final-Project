@@ -1,7 +1,7 @@
 USE cve_database;
 DROP TABLE IF EXISTS browser_stats;
 CREATE TABLE browser_stats (
-    product VARCHAR(50),
+    product VARCHAR(255),
     weighted_average DECIMAL(3,1),
     average_score DECIMAL(3,1),
     min_score DECIMAL(3,1),
@@ -15,9 +15,7 @@ CREATE TABLE browser_stats (
 );
 
 #Chrome
-
 SET @rowindex := -1;
-
 INSERT INTO browser_stats (product, weighted_average, average_score, min_score, max_score, median_score, total_count, num_critical, num_high, num_medium, num_low)
 SELECT
     'Chrome' AS product,
@@ -54,12 +52,10 @@ WHERE
     d.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2)) AND product like "%chrome%" and vendor = "google";
 
 #Edge
-
 SET @rowindex := -1;
-
-INSERT INTO browser_stats (product, weighted_average, average_score, min_score, max_score, median_score, total_count, num_critical, num_high, num_medium, num_low)
-SELECT
-    'Edge' AS product,
+INSERT INTO browser_stats 
+(product, weighted_average, average_score, min_score, max_score, median_score, total_count, num_critical, num_high, num_medium, num_low)
+SELECT 'Edge' AS product,
     SUM(em.cvss_score * CASE
         WHEN em.severity = 'LOW' THEN 0.2
         WHEN em.severity = 'MEDIUM' THEN 0.8
@@ -82,16 +78,14 @@ SELECT
 	SUM(CASE WHEN em.severity = 'HIGH' THEN 1 ELSE 0 END) AS num_high,
 	SUM(CASE WHEN em.severity = 'MEDIUM' THEN 1 ELSE 0 END) AS num_medium,
     SUM(CASE WHEN em.severity = 'LOW' THEN 1 ELSE 0 END) AS num_low
-FROM
-    cve_records em,
-    (SELECT @rowindex := @rowindex + 1 AS rowindex,
-            em.cvss_score
+FROM cve_records em,
+    (SELECT @rowindex := @rowindex + 1 AS rowindex, em.cvss_score
      FROM cve_records em
      WHERE product LIKE "%edge%" and vendor = "microsoft"
      ORDER BY em.cvss_score) AS d
-WHERE
-    d.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2)) AND product like "%edge%" and vendor = "microsoft";
-    
+WHERE d.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2)) 
+AND product like "%edge%" and vendor = "microsoft";
+
 #FireFox
 
 SET @rowindex := -1;
@@ -173,7 +167,6 @@ WHERE
 #Brave
 
 SET @rowindex := -1;
-
 INSERT INTO browser_stats (product, weighted_average, average_score, min_score, max_score, median_score, total_count, num_critical, num_high, num_medium, num_low)
 SELECT
     'Brave' AS product,
