@@ -201,3 +201,4 @@ FROM
      ORDER BY bb.cvss_score) AS d
 WHERE
     d.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2)) AND product like "%brave%" and vendor = "brave";
+select * from browser_stats;
