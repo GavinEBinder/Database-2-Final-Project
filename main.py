@@ -30,7 +30,7 @@ cursor.execute(sql_line)
 
 conn.commit()
 # walk through to get all json files
-for root, dirs, files in os.walk('C:/Users/GBISB/PycharmProjects/pythonProject3/cves'):
+for root, dirs, files in os.walk('cves'):
     json_files = [f for f in files if f.endswith('.json')]
     for file in json_files:
         file_path = os.path.join(root, file)
