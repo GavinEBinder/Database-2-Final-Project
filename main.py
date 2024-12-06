@@ -2,7 +2,6 @@ import json
 import os
 import mysql.connector
 
-# Connect to local mysql
 conn = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -11,21 +10,16 @@ conn = mysql.connector.connect(
 )
 cursor = conn.cursor()
 
-# create database and cve_records table
 sql_line = "DROP SCHEMA IF EXISTS cve_database"
-print("executing create schema")
 cursor.execute(sql_line)
 
 sql_line = "CREATE SCHEMA IF NOT EXISTS cve_database"
-print("executing create schema")
 cursor.execute(sql_line)
 
 sql_line = "USE cve_database"
-print("executing create schema")
 cursor.execute(sql_line)
 
 sql_line = "CREATE TABLE IF NOT EXISTS cve_records (cve_id varchar(255), product varchar(1000), vendor varchar(255), cvss_score decimal(3,1), severity varchar(255))"
-print("executing create table")
 cursor.execute(sql_line)
 
 conn.commit()
